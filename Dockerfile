@@ -16,7 +16,7 @@ FROM golang:1.22 AS build
 
     RUN go mod download
 
-    RUN CGO_ENABLED=0 GOOS=linux go build -o unreal.sh/ether/cmd/ether
+    RUN CGO_ENABLED=0 GOOS=linux go build unreal.sh/ether/cmd/ether
 
 FROM base AS final
 
