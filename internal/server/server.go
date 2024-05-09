@@ -28,5 +28,5 @@ func Start(ctx context.Context) {
 
 	r.Mount("/projects", routes.GetProjectsRouter(ctx, &render, &project_service))
 
-	http.ListenAndServe(":3000", r)
+	http.ListenAndServe(":80", r)
 }

@@ -14,4 +14,6 @@ FROM base AS final
 
     WORKDIR /app
 
+    EXPOSE 80
+
     ENTRYPOINT ["/ether"]
