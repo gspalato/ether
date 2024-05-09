@@ -8,20 +8,20 @@ FROM golang:1.22 AS base
 
 FROM golang:1.22 AS build
 
-    WORKDIR /app
+    WORKDIR /src
 
     ADD ./services/ether .
 
-    RUN ls -R
+    RUN ls
 
     RUN go mod download
 
-    RUN CGO_ENABLED=0 GOOS=linux go build unreal.sh/ether/cmd/ether
+    RUN CGO_ENABLED=0 GOOS=linux go build -o ./ unreal.sh/ether/cmd/ether
 
 FROM base AS final
 
-    WORKDIR /src
+    WORKDIR /app
 
-    COPY --from=build /app/ether .
-
+    COPY --from=build /src/ether .
+    
     ENTRYPOINT ["/ether"]
