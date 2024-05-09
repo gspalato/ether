@@ -1,4 +1,4 @@
-FROM golang:1.19 AS base
+FROM golang:1.22 AS base
 
     WORKDIR /app
 
@@ -6,7 +6,7 @@ FROM golang:1.19 AS base
 
     EXPOSE 443
 
-FROM golang:1.19 AS build
+FROM golang:1.22 AS build
 
     WORKDIR /app
 
