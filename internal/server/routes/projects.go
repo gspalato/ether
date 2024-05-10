@@ -17,6 +17,8 @@ type ProjectsHandler struct {
 }
 
 func (h *ProjectsHandler) GetProjects(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	projects := h.projectService.GetProjects(r.Context())
 
 	h.r.JSON(w, http.StatusOK, projects)
@@ -25,9 +27,9 @@ func (h *ProjectsHandler) GetProjects(w http.ResponseWriter, r *http.Request) {
 func GetProjectsRouter(ctx context.Context, render *render.Render, ps *services.ProjectService) chi.Router {
 	r := chi.NewRouter()
 
-	projectHandler := ProjectsHandler { r: render, projectService: ps }
+	projectHandler := ProjectsHandler{r: render, projectService: ps}
 
 	r.Get("/", projectHandler.GetProjects)
-	
+
 	return r
 }
