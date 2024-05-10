@@ -6,6 +6,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/cors"
 	"github.com/unrolled/render"
 
 	"unreal.sh/ether/internal/server/routes"
@@ -21,6 +22,9 @@ func Start(ctx context.Context) {
 	render := render.Render{}
 
 	r.Use(middleware.Logger)
+	r.Use(cors.Handler(cors.Options{
+		AllowedOrigins: []string{"*"},
+	}))
 
 	r.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("OK"))
