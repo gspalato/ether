@@ -25,11 +25,11 @@ type ProjectService struct {
 	cron   *cron.Cron
 	client *github.Client
 
-	projects []structures.Project
+	projects *[]structures.Project
 }
 
 func (ps *ProjectService) GetProjects(ctx context.Context) []structures.Project {
-	return ps.projects
+	return *ps.projects
 }
 
 func (ps *ProjectService) UpdateProjects(ctx context.Context) {
@@ -121,7 +121,7 @@ func (ps *ProjectService) UpdateProjects(ctx context.Context) {
 		fmt.Printf("Loaded project %s.\n", repo.GetName())
 	}
 
-	ps.projects = updated_projects
+	ps.projects = &updated_projects
 }
 
 func (ps *ProjectService) ParseMetadata(ctx context.Context, str *string) (ProjectMetadata, error) {
@@ -146,7 +146,8 @@ func (ps *ProjectService) Init(ctx context.Context) {
 		ps.client.WithAuthToken(authToken)
 	}
 
-	ps.projects = make([]structures.Project, 0)
+	empty_projects := make([]structures.Project, 0)
+	ps.projects = &empty_projects
 
 	ps.cron = cron.New()
 
