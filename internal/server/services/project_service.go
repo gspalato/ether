@@ -65,7 +65,7 @@ func (ps *ProjectService) UpdateProjects(ctx context.Context) {
 		fmt.Printf("Found metadata file index: %d\n", metadataFileIndex)
 
 		if metadataFileIndex == -1 {
-			fmt.Printf("No metadata found for project %s. Skipping...", repo.GetName())
+			fmt.Printf("No metadata found for project %s. Skipping...\n", repo.GetName())
 			continue
 		}
 
@@ -75,7 +75,7 @@ func (ps *ProjectService) UpdateProjects(ctx context.Context) {
 		fmt.Printf("Found banner file index: %d\n", bannerFileIndex)
 
 		if bannerFileIndex == -1 {
-			fmt.Printf("No banner found for project %s. Skipping...", repo.GetName())
+			fmt.Printf("No banner found for project %s. Skipping...\n", repo.GetName())
 			continue
 		}
 
@@ -110,7 +110,8 @@ func (ps *ProjectService) UpdateProjects(ctx context.Context) {
 
 		project.Name = metadata.Name
 		project.Description = metadata.Description
-		project.Url = repo.GetHTMLURL()
+		project.Url = repo.GetHomepage()
+		project.RepositoryUrl = repo.GetHTMLURL()
 
 		// Set banner URL only, since the portfolio website currently only uses the banners.
 		// Other images are stored in .project for use in README or other stuff.
